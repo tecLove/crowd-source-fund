@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { MatSort, MatTableDataSource, MatDialog, MatPaginator } from '@angular/material';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+
 import { FundService } from '../../../service/fund.service';
 import { BusStop, Donor } from '../../models/model';
 import { DonationComponent } from '../donation/donation.component';
-import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-donation-detail',
@@ -50,10 +51,10 @@ export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy
   getBusStopData() {
     try {
       this.busStopData = this.service.getAllStops();
-    } catch(error) {
+    } catch (error) {
       this.errorOccurred = true;
     }
-    if(this.busStopData) {
+    if (this.busStopData) {
       const _data = this.busStopData.map((data) => data.donorDetails);
       this.dataSource = new MatTableDataSource<Donor>(_data.flat());
       this.clearTimeout = setTimeout(this.doSortPagination, 200);
@@ -63,7 +64,7 @@ export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy
    * to do sorting and pagination
    */
   doSortPagination = () => {
-    if(this.busStopData) {
+    if (this.busStopData) {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
@@ -72,8 +73,8 @@ export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy
    * to update donation detais as per the selection of the bus stop
    */
   showDonationDetails() {
-    if(this.selected) {
-    const obj = this.busStopData.filter((data) => data.stopId == this.selected)[0];
+    if (this.selected) {
+    const obj = this.busStopData.filter((data) => data.stopId === this.selected)[0];
     this.totalFund = obj['donationsRaisedInDollars'];
     this.dataSource.filter = obj['name'].trim().toLowerCase();
     if (this.dataSource.paginator) {
@@ -95,7 +96,7 @@ export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy
         id: this.selected
       }
     });
-    this.dialogSubsciption = this.dialogRef.afterClosed().subscribe(() =>{
+    this.dialogSubsciption = this.dialogRef.afterClosed().subscribe(() => {
       this.selected = undefined;
       this.getBusStopData();
     });

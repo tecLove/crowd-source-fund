@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { FormErrorStateMatcher } from '../../../service/form-error-state-matcher.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+import { FormErrorStateMatcher } from '../../../service/form-error-state-matcher.service';
 import { FundService } from '../../../service/fund.service';
 
 @Component({
@@ -43,11 +44,12 @@ export class DonationComponent implements OnInit {
       required: 'Credit card number is required',
       pattern: 'Please enter a valid Credit card number'
     } },
-    { formControlName: 'expdate', placeholder: 'Expiry Date(MMYYYY)', type: 'number', pattern: '^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$', validation: {
+    { formControlName: 'expdate', placeholder: 'Expiry Date(MMYYYY)', type: 'number',
+     pattern: '^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$', validation: {
       required: 'Expiry Date is required',
       pattern: 'Please enter a valid Expiry Date'
     } },
-    { formControlName: 'cvv', placeholder: 'CVV(xxx/xxxx)', type: 'number', pattern: '^[0-9]{3,4}$',validation: {
+    { formControlName: 'cvv', placeholder: 'CVV(xxx/xxxx)', type: 'number', pattern: '^[0-9]{3,4}$', validation: {
       required: 'CVV is required',
       pattern: 'Please enter a valid CVV'
     } }
@@ -86,13 +88,12 @@ export class DonationComponent implements OnInit {
       lastName: this.form.lastname.value,
       email: this.form.email.value,
       amountDonated: this.form.amountDonated.value
-    }
+    };
     try {
     this.service.donateFund(this.data.id, this.form.amountDonated.value, obj);
     this.errorOccurred = false;
     this.success = true;
-    }
-    catch(error) {
+    } catch (error) {
       this.errorOccurred = true;
     }
 }
@@ -103,5 +104,3 @@ export class DonationComponent implements OnInit {
     this.dialogRef.close();
   }
 }
-
-

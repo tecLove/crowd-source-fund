@@ -2,7 +2,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "types": []
+    "types": [],
+    "lib":[ "es2017", "dom", "esnext.array"]
   },
   "exclude": [
     "test.ts",

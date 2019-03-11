@@ -9,10 +9,10 @@ export class FundService {
   constructor() {
     this.service = new BusStopService();
    }
-   getAllStops(){
+   getAllStops() {
      return this.service.getAllStops();
    }
-   donateFund(id, amount, donorDetails) {
+   donateFund(id: any, amount: any, donorDetails: { stopName: string; firstName: any; lastName: any; email: any; amountDonated: any; }) {
      return this.service.addDonation(id, amount, donorDetails);
    }
 }
