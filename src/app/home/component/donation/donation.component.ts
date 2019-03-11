@@ -49,7 +49,7 @@ export class DonationComponent implements OnInit {
       required: 'Expiry Date is required',
       pattern: 'Please enter a valid Expiry Date'
     } },
-    { formControlName: 'cvv', placeholder: 'CVV(xxx/xxxx)', type: 'number', pattern: '^[0-9]{3,4}$', validation: {
+    { formControlName: 'cvv', placeholder: 'CVV(xxx-x)', type: 'number', pattern: '^[0-9]{3,4}$', validation: {
       required: 'CVV is required',
       pattern: 'Please enter a valid CVV'
     } }

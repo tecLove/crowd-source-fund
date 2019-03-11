@@ -49,7 +49,7 @@ function BusStopService()
 	 * on failure, throws Error
 	 */
 	this.addDonation = function (stopId, donationAmountInDollars, donorDetails)
-	{debugger;
+	{
 		randomlyFailWith('Unable to connect to database');
 		console.log(stopId,donorDetails);
 

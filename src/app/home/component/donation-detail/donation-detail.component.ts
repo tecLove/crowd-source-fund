@@ -74,7 +74,7 @@ export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy
    */
   showDonationDetails() {
     if (this.selected) {
-    const obj = this.busStopData.filter((data) => data.stopId === this.selected)[0];
+    const obj = this.busStopData.filter((data) => data.stopId == this.selected)[0];
     this.totalFund = obj['donationsRaisedInDollars'];
     this.dataSource.filter = obj['name'].trim().toLowerCase();
     if (this.dataSource.paginator) {
