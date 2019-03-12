@@ -1,7 +1,7 @@
 <div *ngIf="errorOccurred" class="text-danger text-center mt-2">
-  Error Occurred while submitting the request, try resubmitting.
+  Error Occurred while submitting the request, try again to submit.
 </div>
-<div class="text-center mt-3"><h3>Donation Form</h3></div>
+<div class="text-center mt-3"><h5>Donation Towards Bus Stop: <p>{{stopName}}</p></h5></div>
 <ng-container *ngIf="!success">
   <div class="d-flex justify-content-center">
     <div class="d-flex flex-column container-width">
@@ -15,7 +15,7 @@
           <div class="d-flex flex-column">
             <div>
               <div class="form-group mt-3">
-                <h3>Personal Details</h3>
+                <h5>Personal Details</h5>
               </div>
               <ng-container *ngFor="let field of personalDetails">
                 <div class="form-group">
@@ -72,14 +72,21 @@
             </div>
             <div>
               <div>
-                <h3>Payment</h3>
-                <label for="fname">Accepted Cards</label>
+                <h5>Payment by Debit/ Credit Card</h5>
+                <label>Accepted Cards</label>
+                <div>
                 <img
                   src="assets/image/card.jpg"
                   width="100px"
                   height="30px"
-                  alt="card"
+                  alt="master/visa card"
                 />
+                <img
+                src="assets/image/am-exp-card.jpg"
+                width="60px"
+                height="30px"
+                alt="ameican express card"
+              /></div>
                 <ng-container *ngFor="let field of paymentDetails">
                   <div class="form-group">
                     <mat-form-field class="mat-field-width">

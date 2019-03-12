@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,12 +11,13 @@ import { FundService } from '../../../service/fund.service';
   templateUrl: './donation.component.html',
   styleUrls: ['./donation.component.scss']
 })
-export class DonationComponent implements OnInit, OnDestroy {
+export class DonationComponent implements OnInit {
   donationForm: FormGroup;
   matcher: ErrorStateMatcher;
   errorOccurred = false;
   success = false;
   stopId: any;
+  stopName: string;
   subscription: any;
   personalDetails = [
     { formControlName: 'firstname', placeholder: 'First Name', type: 'text', pattern: '^[A-Z]+[a-zA-Z]*$', validation: {
@@ -74,9 +75,8 @@ export class DonationComponent implements OnInit, OnDestroy {
       expdate: ['', Validators.required],
       cvv: ['', Validators.required]
     });
-    this.subscription = this.route.params.subscribe((params) => {
-      this.stopId = params.stopId;
-    });
+    this.stopId = this.route.snapshot.paramMap.get('stopId');
+    this.stopName = decodeURI(this.route.snapshot.paramMap.get('stopName'));
   }
   get form(): any { return this.donationForm.controls; }
 
@@ -103,12 +103,6 @@ export class DonationComponent implements OnInit, OnDestroy {
       this.errorOccurred = true;
       this.success = false;
     }
-}
-/**
- * to be called before component is removed from DOM
- */
-ngOnDestroy() {
-  this.subscription.unsubscribe();
 }
 /**
  * to navigate to donation form

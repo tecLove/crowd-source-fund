@@ -1,10 +1,11 @@
 <div class="text-center mt-3">
-  <h3>Welcome to Crowd Source Fund Organization</h3>
+  <h3>Welcome to Crowd Source Management Organization</h3>
 </div>
 <ng-container *ngIf="!errorOccurred">
   <div class="d-flex justify-content-center">
     <div class="container-width">
       <div class="d-flex flex-column">
+       <div class="text-center"><p>Select a Bus Stop from the drop down below to see existing and to make donation towards a particular Bus Stop</p></div>
         <div class="d-flex justify-content-center">
           <mat-form-field>
             <mat-label>Select your Bus Stop</mat-label>
@@ -28,16 +29,19 @@
         </div>
         <div *ngIf="selected">
           <div class="d-flex justify-content-center">
-            Target fund to be raised : S$700
+            <p>Minimum fund raising target:S$700</p>
           </div>
           <div class="d-flex justify-content-center">
-            Total Fund raised for this Bus Stop: {{ totalFund }}
+            <p>Total Fund raised:</p> {{ 'S$'+totalFund }}
           </div>
+          <div class="d-flex justify-content-center">
+            <p>Fund required to meet the target: </p> {{ 700 - totalFund > 0 ? 'S$'+ (700 - totalFund) : 'S$'+0 }}
+            </div>
           <div class="d-flex justify-content-center mt-3">
             <button
               mat-raised-button
               class="btn btn-success"
-              (click)="showDonateDialog()"
+              (click)="showDonationForm()"
             >
               Donate
             </button>
@@ -46,8 +50,8 @@
       </div>
     </div>
   </div>
-
-  <div class="mat-elevation-z8 mt-5 mb-5 container">
+<!-- Table showing the details of donation -->
+  <div class="mat-elevation-z8 mt-2 mb-5 container">
     <table mat-table [dataSource]="dataSource" matSort>
       <!-- Stop Name Column -->
       <ng-container matColumnDef="stopName">
@@ -76,7 +80,7 @@
       <!-- Amount Donated Column -->
       <ng-container matColumnDef="amountDonated">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Donated Amoun(in Dollars)
+          Donated Amoun(in S$)
         </th>
         <td mat-cell *matCellDef="let element" class="pl-3">
           {{ element.amountDonated }}

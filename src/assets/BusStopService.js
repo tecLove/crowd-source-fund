@@ -10,8 +10,8 @@ function BusStopService()
 		{ stopId: 3, lat: 33.757355, lng: -84.386423, donationsRaisedInDollars: 200, name: 'Georgia Pacific', donorDetails :[
 			{stopName: 'Georgia Pacific', firstName: 'Julie', lastName: 'Simpson', email : 'xyz@gmail.com', amountDonated: 200}
 		]},
-		{ stopId: 4, lat: 33.758648, lng: -84.382754, donationsRaisedInDollars: 0, name: 'Sheraton Atlanta', donorDetails :[
-			{stopName: 'Sheraton Atlanta', firstName: 'Maria', lastName: 'Gonzalvis', email : 'xyz@gmail.com', amountDonated: 300}
+		{ stopId: 4, lat: 33.758648, lng: -84.382754, donationsRaisedInDollars: 100, name: 'Sheraton Atlanta', donorDetails :[
+			{stopName: 'Sheraton Atlanta', firstName: 'Maria', lastName: 'Gonzalvis', email : 'xyz@gmail.com', amountDonated: 100}
 		]},
 		{ stopId: 5, lat: 33.755365, lng: -84.384921, donationsRaisedInDollars: 35, name: 'Loudermilk Center', donorDetails :[
 			{stopName: 'Loudermilk Center', firstName: 'Kumkum', lastName: 'Patel', email : 'xyz@gmail.com', amountDonated: 35}

@@ -14,6 +14,7 @@ import { BusStop, Donor } from '../../models/model';
 export class DonationDetailComponent implements OnInit, AfterViewInit {
   busStopData: BusStop[];
   selected: any;
+  busStopName: string;
   totalFund: any;
   dataSource: MatTableDataSource<Donor>;
   errorOccurred = false;
@@ -65,7 +66,8 @@ export class DonationDetailComponent implements OnInit, AfterViewInit {
     if (this.selected) {
     const obj = this.busStopData.filter((data) => data.stopId == this.selected)[0];
     this.totalFund = obj['donationsRaisedInDollars'];
-    this.dataSource.filter = obj['name'].trim().toLowerCase();
+    this.busStopName = obj['name'].trim().toLowerCase();
+    this.dataSource.filter = this.busStopName;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -74,10 +76,10 @@ export class DonationDetailComponent implements OnInit, AfterViewInit {
   }
 }
   /**
-   * to pop up donation form for a user to donate
+   * to route to donation form for a user to donate towards a Bus Stop
    */
-  showDonateDialog() {
+  showDonationForm() {
     const route = '/payment/' + this.selected;
-    this.router.navigate([route]);
+    this.router.navigate(['/payment', {stopId: this.selected, stopName: this.busStopName}]);
   }
 }
