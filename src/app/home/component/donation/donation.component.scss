@@ -1,8 +1,10 @@
-.icon-container {
-    margin-bottom: 20px;
-    padding: 7px 0;
-    font-size: 24px;
+.mat-field-width {
+  width: 100%;
   }
-  .mat-field-width {
-    width: 100%;
-  }
+ .container-width {
+  border: .3px solid grey;
+  height: 560px;
+  overflow: auto;
+  padding-bottom: 8px;
+  width: 500px;
+ } 

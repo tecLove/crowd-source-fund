@@ -1,74 +1,30 @@
-<div *ngIf="errorOccurred" class="text-danger">
+<div *ngIf="errorOccurred" class="text-danger text-center mt-2">
   Error Occurred while submitting the request, try resubmitting.
 </div>
+<div class="text-center mt-3"><h3>Donation Form</h3></div>
 <ng-container *ngIf="!success">
-  <div class="d-flex flex-column container">
-    <div id="regTitle" class="d-flex justify-content-center">
-      <h4>Donation Form</h4>
-    </div>
-    <div>
-      <form
-        [formGroup]="donationForm"
-        (ngSubmit)="onSubmit()"
-        novalidate
-        autocomplete="off"
-      >
-        <div class="d-flex flex-column">
-          <div>
-            <div class="form-group">
-                <h3>Personal Details</h3>
-            </div>
-            <ng-container *ngFor="let field of personalDetails">
-              <div class="form-group">
-                <mat-form-field class="mat-field-width">
-                  <input
-                    [ngClass]="{
-                      'text-right': field['formControlName'] === 'amountDonated'
-                    }"
-                    matInput
-                    [type]="field['type']"
-                    [placeholder]="field['placeholder']"
-                    [formControlName]="field['formControlName']"
-                    [pattern]="field['pattern']"
-                    [errorStateMatcher]="matcher"
-                    [id]="field['formControlName']"
-                  />
-                  <mat-error
-                    *ngIf="
-                      form[field['formControlName']].hasError('pattern') &&
-                      !form[field['formControlName']].hasError('required')
-                    "
-                  >
-                    {{ field["validation"]["pattern"] }}
-                  </mat-error>
-                  <mat-error
-                    *ngIf="
-                      form[field['formControlName']].hasError('email') &&
-                      !form[field['formControlName']].hasError('required')
-                    "
-                  >
-                    {{ field["validation"]["email"] }}
-                  </mat-error>
-                  <mat-error
-                    *ngIf="form[field['formControlName']].hasError('required')"
-                  >
-                    {{ field["validation"]["required"] }}
-                  </mat-error>
-        <span *ngIf="field['formControlName'] === 'amountDonated'" matPrefix>$&nbsp;</span>
-        <span *ngIf="field['formControlName'] === 'amountDonated'" matSuffix>.00</span>
-                </mat-form-field>
-              </div>
-            </ng-container>
-          </div>
-          <div>
+  <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column container-width">
+      <div class="d-flex justify-content-center">
+        <form
+          [formGroup]="donationForm"
+          (ngSubmit)="onSubmit()"
+          novalidate
+          autocomplete="off"
+        >
+          <div class="d-flex flex-column">
             <div>
-                <h3>Payment</h3>
-                <label for="fname">Accepted Cards</label>
-                <img src="assets/image/card.jpg" width="100px" height="30px" alt="card"/>
-              <ng-container *ngFor="let field of paymentDetails">
+              <div class="form-group mt-3">
+                <h3>Personal Details</h3>
+              </div>
+              <ng-container *ngFor="let field of personalDetails">
                 <div class="form-group">
                   <mat-form-field class="mat-field-width">
                     <input
+                      [ngClass]="{
+                        'text-right':
+                          field['formControlName'] === 'amountDonated'
+                      }"
                       matInput
                       [type]="field['type']"
                       [placeholder]="field['placeholder']"
@@ -100,30 +56,90 @@
                     >
                       {{ field["validation"]["required"] }}
                     </mat-error>
+                    <span
+                      *ngIf="field['formControlName'] === 'amountDonated'"
+                      matPrefix
+                      >$&nbsp;</span
+                    >
+                    <span
+                      *ngIf="field['formControlName'] === 'amountDonated'"
+                      matSuffix
+                      >.00</span
+                    >
                   </mat-form-field>
                 </div>
               </ng-container>
             </div>
+            <div>
+              <div>
+                <h3>Payment</h3>
+                <label for="fname">Accepted Cards</label>
+                <img
+                  src="assets/image/card.jpg"
+                  width="100px"
+                  height="30px"
+                  alt="card"
+                />
+                <ng-container *ngFor="let field of paymentDetails">
+                  <div class="form-group">
+                    <mat-form-field class="mat-field-width">
+                      <input
+                        matInput
+                        [type]="field['type']"
+                        [placeholder]="field['placeholder']"
+                        [formControlName]="field['formControlName']"
+                        [pattern]="field['pattern']"
+                        [errorStateMatcher]="matcher"
+                        [id]="field['formControlName']"
+                      />
+                      <mat-error
+                        *ngIf="
+                          form[field['formControlName']].hasError('pattern') &&
+                          !form[field['formControlName']].hasError('required')
+                        "
+                      >
+                        {{ field["validation"]["pattern"] }}
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          form[field['formControlName']].hasError('email') &&
+                          !form[field['formControlName']].hasError('required')
+                        "
+                      >
+                        {{ field["validation"]["email"] }}
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          form[field['formControlName']].hasError('required')
+                        "
+                      >
+                        {{ field["validation"]["required"] }}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="form-group mb-5">
+              <button
+                mat-raised-button
+                class="float-left form-button"
+                (click)="exit()"
+              >
+                cancel
+              </button>
+              <button
+                mat-raised-button
+                [disabled]="loading"
+                class="float-right form-button"
+                id="regSubmitBtn"
+              >
+                Submit
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <button
-            mat-raised-button
-            class="float-left form-button"
-            (click)="exit()"
-          >
-            cancel
-          </button>
-          <button
-            mat-raised-button
-            [disabled]="loading"
-            class="float-right form-button"
-            id="regSubmitBtn"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </ng-container>

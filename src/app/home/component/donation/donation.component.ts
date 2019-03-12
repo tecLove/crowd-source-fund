@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormErrorStateMatcher } from '../../../service/form-error-state-matcher.service';
 import { FundService } from '../../../service/fund.service';
@@ -11,19 +11,21 @@ import { FundService } from '../../../service/fund.service';
   templateUrl: './donation.component.html',
   styleUrls: ['./donation.component.scss']
 })
-export class DonationComponent implements OnInit {
+export class DonationComponent implements OnInit, OnDestroy {
   donationForm: FormGroup;
   matcher: ErrorStateMatcher;
   errorOccurred = false;
   success = false;
+  stopId: any;
+  subscription: any;
   personalDetails = [
     { formControlName: 'firstname', placeholder: 'First Name', type: 'text', pattern: '^[A-Z]+[a-zA-Z]*$', validation: {
       required: 'First Name is required',
-      pattern: 'Please enter a valid First Name'
+      pattern: 'Please enter a valid First Name - First letter starts with Uppercase'
     } },
     { formControlName: 'lastname', placeholder: 'Last Name', type: 'text', pattern: '^[A-Z]+[a-zA-Z]*$', validation: {
       required: 'Last Name is required',
-      pattern: 'Please enter a valid Last Name'
+      pattern: 'Please enter a valid Last Name - First letter starts with Uppercase'
     } },
     { formControlName: 'email', placeholder: 'Email', type: 'email', validation: {
       email: 'Please enter a valid Email'
@@ -55,8 +57,9 @@ export class DonationComponent implements OnInit {
     } }
   ];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DonationComponent>,
-   private formBuilder: FormBuilder, private errorMatcher: FormErrorStateMatcher, private service: FundService) {
+  constructor(
+   private formBuilder: FormBuilder, private errorMatcher: FormErrorStateMatcher, private service: FundService,
+   private route: ActivatedRoute, private router: Router) {
     this.matcher = this.errorMatcher;
    }
 
@@ -70,6 +73,9 @@ export class DonationComponent implements OnInit {
       creditCardNumber: ['', Validators.required],
       expdate: ['', Validators.required],
       cvv: ['', Validators.required]
+    });
+    this.subscription = this.route.params.subscribe((params) => {
+      this.stopId = params.stopId;
     });
   }
   get form(): any { return this.donationForm.controls; }
@@ -90,17 +96,24 @@ export class DonationComponent implements OnInit {
       amountDonated: this.form.amountDonated.value
     };
     try {
-    this.service.donateFund(this.data.id, this.form.amountDonated.value, obj);
+    this.service.donateFund(this.stopId, this.form.amountDonated.value, obj);
     this.errorOccurred = false;
     this.success = true;
     } catch (error) {
       this.errorOccurred = true;
+      this.success = false;
     }
 }
 /**
- * to close the donation form pop up
+ * to be called before component is removed from DOM
+ */
+ngOnDestroy() {
+  this.subscription.unsubscribe();
+}
+/**
+ * to navigate to donation form
  */
   exit() {
-    this.dialogRef.close();
+    this.router.navigate(['/home']);
   }
 }

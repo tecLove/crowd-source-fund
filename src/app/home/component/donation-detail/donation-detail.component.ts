@@ -1,31 +1,28 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
 
 import { FundService } from '../../../service/fund.service';
 import { BusStop, Donor } from '../../models/model';
-import { DonationComponent } from '../donation/donation.component';
 
 @Component({
   selector: 'app-donation-detail',
   templateUrl: './donation-detail.component.html',
   styleUrls: ['./donation-detail.component.scss']
 })
-export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DonationDetailComponent implements OnInit, AfterViewInit {
   busStopData: BusStop[];
   selected: any;
   totalFund: any;
   dataSource: MatTableDataSource<Donor>;
   errorOccurred = false;
-  dialogRef: any;
-  clearTimeout: any;
-  dialogSubsciption: any;
   displayedColumns: string[] = ['stopName', 'firstName', 'lastName', 'email', 'amountDonated'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   busStopSelectControl = new FormControl('', Validators.required);
 
-  constructor(private service: FundService, private dialog: MatDialog) { }
+  constructor(private service: FundService, private router: Router) { }
   /**
    * Initialization
    */
@@ -39,13 +36,6 @@ export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy
     this.doSortPagination();
   }
   /**
-   * called before component is removed from the DOM
-   */
-  ngOnDestroy() {
-    clearTimeout(this.clearTimeout);
-    this.dialogSubsciption.unsubscribe();
-  }
-  /**
    * to get bus stop data
    */
   getBusStopData() {
@@ -57,7 +47,6 @@ export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy
     if (this.busStopData) {
       const _data = this.busStopData.map((data) => data.donorDetails);
       this.dataSource = new MatTableDataSource<Donor>(_data.flat());
-      this.clearTimeout = setTimeout(this.doSortPagination, 200);
     }
   }
   /**
@@ -83,22 +72,12 @@ export class DonationDetailComponent implements OnInit, AfterViewInit, OnDestroy
   } else {
     this.dataSource.filter = '';
   }
-  console.log(this.selected);
 }
   /**
    * to pop up donation form for a user to donate
    */
   showDonateDialog() {
-    this.dialogRef = this.dialog.open(DonationComponent, {
-      height: '600px',
-      width: '350px',
-      data: {
-        id: this.selected
-      }
-    });
-    this.dialogSubsciption = this.dialogRef.afterClosed().subscribe(() => {
-      this.selected = undefined;
-      this.getBusStopData();
-    });
+    const route = '/payment/' + this.selected;
+    this.router.navigate([route]);
   }
 }
