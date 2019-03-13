@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatPaginatorModule,
-  MatSelectModule, MatSortModule, MatTableModule
+  MatRadioModule, MatSelectModule, MatSortModule, MatTableModule
 } from '@angular/material';
 
 import { DonationDetailComponent } from '../home/component/donation-detail/donation-detail.component';
@@ -14,7 +14,7 @@ import { DonationComponent } from '../home/component/donation/donation.component
     CommonModule,
     FormsModule, ReactiveFormsModule,
     MatSelectModule, MatTableModule, MatDialogModule,
-    MatInputModule, MatFormFieldModule, MatButtonModule, MatPaginatorModule, MatSortModule
+    MatInputModule, MatFormFieldModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatRadioModule
   ],
   entryComponents: [DonationComponent]
 })

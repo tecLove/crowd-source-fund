@@ -87,6 +87,12 @@
                 height="30px"
                 alt="ameican express card"
               /></div>
+              <div class="mt-2">
+                <mat-radio-group>
+                  <mat-radio-button value="debit">Debit</mat-radio-button>
+                  <mat-radio-button value="credit">Credit</mat-radio-button>
+                </mat-radio-group>
+              </div>
                 <ng-container *ngFor="let field of paymentDetails">
                   <div class="form-group">
                     <mat-form-field class="mat-field-width">
