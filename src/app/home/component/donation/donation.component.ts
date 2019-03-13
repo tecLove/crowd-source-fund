@@ -88,6 +88,11 @@ export class DonationComponent implements OnInit {
     if (this.donationForm.invalid) {
       return;
     }
+    // to check if exp date is valid or not
+    if(!this.validateExpDate(this.form.expdate.value)) {
+      this.form.expdate.setErrors({'pattern': true});
+      return;
+    }
     const obj = {
       stopName: '',
       firstName: this.form.firstname.value,
@@ -103,6 +108,19 @@ export class DonationComponent implements OnInit {
       this.errorOccurred = true;
       this.success = false;
     }
+}
+/**
+ * to validate expiry date of the card
+ * @param date 
+ */
+validateExpDate(date) {debugger;
+  const year =  parseInt(date.substring(2, date.length));
+  const month = parseInt(date.substring(0, 2));
+  const currDate = new Date();
+  if(month < (currDate.getMonth() + 1) || year < currDate.getFullYear()) {
+    return false;
+  }
+  return true;
 }
 /**
  * to navigate to donation form
