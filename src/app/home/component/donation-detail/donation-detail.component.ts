@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
@@ -11,13 +11,14 @@ import { BusStop, Donor } from '../../models/model';
   templateUrl: './donation-detail.component.html',
   styleUrls: ['./donation-detail.component.scss']
 })
-export class DonationDetailComponent implements OnInit, AfterViewInit {
+export class DonationDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   busStopData: BusStop[];
   selected: any;
   busStopName: string;
   totalFund: any;
   dataSource: MatTableDataSource<Donor>;
   errorOccurred = false;
+  timeoutSubscibe: any;
   displayedColumns: string[] = [
     'stopName',
     'firstName',
@@ -61,8 +62,8 @@ export class DonationDetailComponent implements OnInit, AfterViewInit {
    */
   doSortPagination = () => {
     if (this.busStopData) {
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
     }
   }
   /**
@@ -92,5 +93,23 @@ export class DonationDetailComponent implements OnInit, AfterViewInit {
       '/payment',
       { stopId: this.selected, stopName: this.busStopName }
     ]);
+  }
+  /**
+   * method to invoke before component gets destroyed
+   */
+  ngOnDestroy() {
+    if (this.timeoutSubscibe) {
+      clearTimeout(this.timeoutSubscibe);
+    }
+  }
+  /**
+   * to refresh the page
+   */
+  refreshData() {
+    this.errorOccurred = false;
+    this.getBusStopData();
+    this.timeoutSubscibe = setTimeout(() => {
+      this.doSortPagination();
+    }, 200);
   }
 }

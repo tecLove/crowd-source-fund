@@ -122,6 +122,7 @@ export class DonationComponent implements OnInit {
       lastname: ['', Validators.required],
       email: ['', Validators.compose([Validators.email])],
       amountDonated: ['', Validators.required],
+      cardType: ['debit', Validators.required],
       nameonCard: ['', Validators.required],
       creditCardNumber: ['', Validators.required],
       expdate: ['', Validators.required],
