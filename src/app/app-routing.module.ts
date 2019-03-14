@@ -5,14 +5,14 @@ import { DonationDetailComponent } from './home/component/donation-detail/donati
 import { DonationComponent } from './home/component/donation/donation.component';
 
 const routes: Routes = [
-  {path: 'home', component: DonationDetailComponent},
-  {path: 'payment', component: DonationComponent},
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: '**', redirectTo: 'home', pathMatch: 'full'}
+  { path: 'home', component: DonationDetailComponent },
+  { path: 'payment', component: DonationComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

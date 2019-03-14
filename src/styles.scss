@@ -1,5 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/scss/bootstrap";
-@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
-body { font-family: 'Times New Roman', 'Helvetica Neue', sans-serif}
-html, body {margin: 0; height: 100%; overflow: auto}
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
+body {
+  font-family: 'Roboto', 'Times New Roman', 'Helvetica Neue', sans-serif;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: auto;
+}
+body {
+  background-image: url(assets/images/bg-img.jpg);
+  background-size: cover;
+}

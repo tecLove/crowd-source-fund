@@ -18,12 +18,18 @@ export class DonationDetailComponent implements OnInit, AfterViewInit {
   totalFund: any;
   dataSource: MatTableDataSource<Donor>;
   errorOccurred = false;
-  displayedColumns: string[] = ['stopName', 'firstName', 'lastName', 'email', 'amountDonated'];
+  displayedColumns: string[] = [
+    'stopName',
+    'firstName',
+    'lastName',
+    'email',
+    'amountDonated'
+  ];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   busStopSelectControl = new FormControl('', Validators.required);
 
-  constructor(private service: FundService, private router: Router) { }
+  constructor(private service: FundService, private router: Router) {}
   /**
    * Initialization
    */
@@ -46,7 +52,7 @@ export class DonationDetailComponent implements OnInit, AfterViewInit {
       this.errorOccurred = true;
     }
     if (this.busStopData) {
-      const _data = this.busStopData.map((data) => data.donorDetails);
+      const _data = this.busStopData.map(data => data.donorDetails);
       this.dataSource = new MatTableDataSource<Donor>(_data.flat());
     }
   }
@@ -64,22 +70,27 @@ export class DonationDetailComponent implements OnInit, AfterViewInit {
    */
   showDonationDetails() {
     if (this.selected) {
-    const obj = this.busStopData.filter((data) => data.stopId == this.selected)[0];
-    this.totalFund = obj['donationsRaisedInDollars'];
-    this.busStopName = obj['name'].trim().toLowerCase();
-    this.dataSource.filter = this.busStopName;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+      // tslint:disable-next-line:triple-equals
+      const obj = this.busStopData.filter(
+        data => data.stopId == this.selected
+      )[0];
+      this.totalFund = obj['donationsRaisedInDollars'];
+      this.busStopName = obj['name'].trim().toLowerCase();
+      this.dataSource.filter = this.busStopName;
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    } else {
+      this.dataSource.filter = '';
     }
-  } else {
-    this.dataSource.filter = '';
   }
-}
   /**
    * to route to donation form for a user to donate towards a Bus Stop
    */
   showDonationForm() {
-    const route = '/payment/' + this.selected;
-    this.router.navigate(['/payment', {stopId: this.selected, stopName: this.busStopName}]);
+    this.router.navigate([
+      '/payment',
+      { stopId: this.selected, stopName: this.busStopName }
+    ]);
   }
 }

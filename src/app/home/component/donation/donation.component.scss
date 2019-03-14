@@ -1,13 +1,16 @@
 .mat-field-width {
   width: 100%;
-  }
- .container-width {
-  border: .3px solid grey;
+}
+.container-width {
   height: 500px;
   overflow: auto;
   padding-bottom: 8px;
   width: 500px;
- }
- p {
-   text-transform: capitalize;
- }
+}
+p {
+  text-transform: capitalize;
+}
+
+.mouse-pointer {
+  cursor: pointer;
+}
