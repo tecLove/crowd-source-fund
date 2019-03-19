@@ -3,15 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FormErrorStateMatcher } from '../../../service/form-error-state-matcher.service';
-import { FundService } from '../../../service/fund.service';
+import { FormErrorStateMatcher } from '../../service/form-error-state-matcher.service';
+import { FundService } from '../../service/fund.service';
 
 @Component({
-  selector: 'app-donation',
-  templateUrl: './donation.component.html',
-  styleUrls: ['./donation.component.scss']
+  selector: 'app-payment',
+  templateUrl: './payment.component.html',
+  styleUrls: ['./payment.component.scss']
 })
-export class DonationComponent implements OnInit {
+export class PaymentComponent implements OnInit {
   donationForm: FormGroup;
   matcher: ErrorStateMatcher;
   errorOccurred = false;

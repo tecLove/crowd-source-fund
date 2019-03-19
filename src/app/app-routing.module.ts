@@ -6,7 +6,7 @@ import { DonationComponent } from './home/component/donation/donation.component'
 
 const routes: Routes = [
   { path: 'home', component: DonationDetailComponent },
-  { path: 'payment', component: DonationComponent },
+  { path: 'payment', loadChildren: './payment/payment.module#PaymentModule' },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
