@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -11,13 +11,12 @@ import {
   MatTableModule
 } from '@angular/material';
 
-import { DonationDetailComponent } from '../home/component/donation-detail/donation-detail.component';
+import { DonationDetailComponent } from '../home/component/donation-detail.component';
 
 @NgModule({
   declarations: [DonationDetailComponent],
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatTableModule,

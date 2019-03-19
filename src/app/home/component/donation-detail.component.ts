@@ -3,8 +3,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { FundService } from '../../../service/fund.service';
-import { BusStop, Donor } from '../../models/model';
+import { FundService } from '../../service/fund.service';
+import { BusStop, Donor } from '../models/model';
 
 @Component({
   selector: 'app-donation-detail',

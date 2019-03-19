@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -18,7 +18,6 @@ const routes: Routes = [{
   declarations: [PaymentComponent],
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
